@@ -7,7 +7,9 @@ package com.mycompany.visao;
 import com.mycompany.dao.DaoCategoria;
 import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModCategoria;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,22 +25,21 @@ public class CadCategoria extends javax.swing.JFrame {
         
         if(!existeDadosTemporarios()){
             DaoCategoria daoCategoria = new DaoCategoria();
-            
-            int id = daoCategoria.buscarProximo();
+
+            int id = daoCategoria.buscarProximoId(); 
             if (id >= 0)
-                tfID.setText(String.valueOf(id));
+                tfId.setText(String.valueOf(id));
             
             btnAcao.setText(Constantes.BTN_SALVAR_TEXT);
             btnExcluir.setVisible(false);
         }else{
             btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
             btnExcluir.setVisible(true);
-            
         }
         
         setLocationRelativeTo(null);
         
-        tfID.setEnabled(true);
+        tfId.setEnabled(false);
     }
     
     private Boolean existeDadosTemporarios(){
@@ -47,7 +48,7 @@ public class CadCategoria extends javax.swing.JFrame {
             String nome = ((ModCategoria) DadosTemporarios.tempObject).getNome();
             String descricao = ((ModCategoria) DadosTemporarios.tempObject).getDescricao();
             
-            tfID.setText(String.valueOf(id));
+            tfId.setText(String.valueOf(id));
             tfNome.setText(nome);
             taDescricao.setText(descricao);
         
@@ -56,6 +57,56 @@ public class CadCategoria extends javax.swing.JFrame {
             return true;
         }else
             return false;
+    }
+    
+    private void inserir(){
+        DaoCategoria daoCategoria = new DaoCategoria();
+        
+        if (daoCategoria.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), taDescricao.getText())){
+            JOptionPane.showMessageDialog(null, "Categoria salva com sucesso!");
+            
+            tfId.setText(String.valueOf(daoCategoria.buscarProximoId()));
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar a categoria!");
+        }
+    }
+    
+    private void alterar(){
+        DaoCategoria daoCategoria = new DaoCategoria();
+        
+        if (daoCategoria.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), taDescricao.getText())){
+            JOptionPane.showMessageDialog(null, "Categoria alterada com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a categoria!");
+        }
+        
+        ((ListCategoria) Formularios.listCategoria).listarTodos();
+        
+        dispose();
+    }
+    
+    private void excluir(){
+        DaoCategoria daoCategoria = new DaoCategoria();
+        
+        if (daoCategoria.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Categoria " + tfNome.getText() + " excluída com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir a categoria!");
+        }
+        
+        ((ListCategoria) Formularios.listCategoria).listarTodos();
+        
+        dispose();
     }
 
     /**
@@ -72,7 +123,7 @@ public class CadCategoria extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        tfID = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -91,6 +142,11 @@ public class CadCategoria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Categoria");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("ID");
 
@@ -99,8 +155,18 @@ public class CadCategoria extends javax.swing.JFrame {
         jLabel3.setText("Descrição");
 
         btnAcao.setText("Salvar");
+        btnAcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcaoActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         taDescricao.setColumns(20);
         taDescricao.setRows(5);
@@ -112,39 +178,44 @@ public class CadCategoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addComponent(tfID)
-                        .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
-                    .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAcao)
-                        .addGap(144, 144, 144)
-                        .addComponent(btnExcluir)))
-                .addContainerGap(106, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(btnAcao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir))
+                    .addComponent(tfNome)
+                    .addComponent(tfId))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnExcluir)
-                    .addComponent(btnAcao)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAcao)
+                        .addGap(8, 8, 8))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addContainerGap())))
         );
 
         pack();
@@ -153,6 +224,37 @@ public class CadCategoria extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
+        DaoCategoria daoCategoria = new DaoCategoria();
+        
+        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT){
+            inserir();
+            
+            tfId.setText(String.valueOf(daoCategoria.buscarProximoId()));
+            tfNome.setText("");
+            taDescricao.setText("");
+        }
+        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT){
+            alterar();
+            
+            dispose();
+        }
+    }//GEN-LAST:event_btnAcaoActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int escolha = 
+                JOptionPane.showConfirmDialog(
+                        null, 
+                        "Deseja realmente excluir a categoria " + tfNome.getText() + "?");
+        
+        if(escolha == JOptionPane.YES_OPTION)
+            excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.cadCategoria = null;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -201,7 +303,7 @@ public class CadCategoria extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextArea taDescricao;
-    private javax.swing.JTextField tfID;
+    private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 }

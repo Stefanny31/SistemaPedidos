@@ -69,7 +69,7 @@ public class DaoCategoria extends BancoDeDadosMySql{
     }
     public ResultSet listarTodos(){
         try{
-            sql = "SELECT ID, NOME, INFNULL(DESCRICAO, '')FROM CATEGORIA";
+            sql = "SELECT ID, NOME, IFNULL(DESCRICAO, '')FROM CATEGORIA";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -97,7 +97,7 @@ public class DaoCategoria extends BancoDeDadosMySql{
     }
     public ResultSet listarPorNome(String nome){
         try{
-            sql = "SELECT ID, NOME, IFNULL(DESCRICAO.'')FROM CATEGORIA WHERE NOME LIKE?";
+            sql = "SELECT ID, NOME, IFNULL(DESCRICAO, '') FROM CATEGORIA WHERE NOME LIKE ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -113,7 +113,7 @@ public class DaoCategoria extends BancoDeDadosMySql{
     
     public ResultSet listarPorDescricao(String descricao){
         try{
-            sql="SELECT ID, NOME, IFNULL(DESCRICAO, '')FROM CATEGORIA WHERE DESCRICAO LIKE ?";
+            sql="SELECT ID, NOME, IFNULL(DESCRICAO, '') FROM CATEGORIA WHERE DESCRICAO LIKE ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -126,19 +126,20 @@ public class DaoCategoria extends BancoDeDadosMySql{
         
         return getResultado();
     }
-    public int buscarProximo(){
-        int id = -1;
+    
+    public int buscarProximoId(){
+        int id = 0;
         
         try{
-            sql = "SELECT MAX(ID) +  FROM CATEGORIA";
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CATEGORIA";
             
             setStatement(getConexao().prepareStatement(sql));
             
-             setResultado(getStatement().executeQuery());
-             
-             getResultado().next(); // Move para o primeiro registro.
-             
-             id = getResultado().getInt(1);//Pega o valor retornado na cosulta
+            setResultado(getStatement().executeQuery());
+            
+            getResultado().next(); //Move para o primeiro registro.
+            
+            id = getResultado().getInt(1); //Pega o valor retornado na consulta
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

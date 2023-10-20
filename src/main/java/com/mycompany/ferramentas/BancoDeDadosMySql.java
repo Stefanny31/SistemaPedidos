@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class BancoDeDadosMySql {
    
     private static final String URL = 
-        "jdbc:mysql://localhost:3306/banco_de_dados_teste?useSSL="
+        "jdbc:mysql://localhost:3306/banco_de_dados_stefanny?useSSL="
             + "false&allowPublicKeyRetrieval=true";
     
     private static final String USUARIO = "root";

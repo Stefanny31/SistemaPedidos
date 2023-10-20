@@ -88,32 +88,32 @@ public class CadEstado extends javax.swing.JFrame {
     private void inserir(){
         DaoEstado daoEstado = new DaoEstado();
         
-        if (daoEstado.inserir(Integer.parseInt(tfId.getText()), Integer.parseInt(tfIdPais.getText()), tfNome.getText())){
-            JOptionPane.showMessageDialog(null, "Estado salvo com sucesso!");
-            
-            tfId.setText(String.valueOf(daoEstado.buscarProximoId()));
-            tfNome.setText("");
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o estado!");
-        }
+//        if (daoEstado.inserir(Integer.parseInt(tfId.getText()), Integer.parseInt(tfIdPais.getText()), tfNome.getText())){
+//            JOptionPane.showMessageDialog(null, "Estado salvo com sucesso!");
+//            
+//            tfId.setText(String.valueOf(daoEstado.buscarProximoId()));
+//            tfNome.setText("");
+//            
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possível salvar o estado!");
+//        }
     }
     
     private void alterar(){
         DaoEstado daoEstado = new DaoEstado();
         
-        if (daoEstado.alterar(Integer.parseInt(tfId.getText()), Integer.parseInt(tfIdPais.getText()), tfNome.getText())){
-            JOptionPane.showMessageDialog(null, "Estado alterada com sucesso!");
-            
-            tfId.setText("");
-            tfIdPais.setText("");
-            tfNome.setText("");
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o estado!");
-        }
-        
-        ((ListEstado) Formularios.listEstado).listarTodos();
+//        if (daoEstado.alterar(Integer.parseInt(tfId.getText()), Integer.parseInt(tfIdPais.getText()), tfNome.getText())){
+//            JOptionPane.showMessageDialog(null, "Estado alterada com sucesso!");
+//            
+//            tfId.setText("");
+//            tfIdPais.setText("");
+//            tfNome.setText("");
+//            
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possível alterar o estado!");
+//        }
+//        
+//        ((ListEstado) Formularios.listEstado).listarTodos();
         
         dispose();
     }
@@ -130,7 +130,7 @@ public class CadEstado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o estado!");
         }
         
-        ((ListEstado) Formularios.listEstado).listarTodos();
+//        ((ListEstado) Formularios.listEstado).listarTodos();
         
         dispose();
     }
