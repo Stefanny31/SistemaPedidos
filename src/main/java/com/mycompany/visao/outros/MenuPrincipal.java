@@ -6,8 +6,8 @@ package com.mycompany.visao.outros;
 
 import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.ferramentas.Formularios;
-import com.mycompany.visao.CadCategoria;
-import com.mycompany.visao.ListCategoria;
+import com.mycompany.visao.categoria.CadCategoria;
+import com.mycompany.visao.categoria.ListCategoria;
 import com.mycompany.visao.pais.CadPais;
 import javax.swing.JOptionPane;
 

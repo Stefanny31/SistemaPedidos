@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.visao;
+package com.mycompany.visao.estadocivil;
 
-import com.mycompany.dao.DaoCategoria;
+import com.mycompany.dao.DaoEstadoCivil;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
-import com.mycompany.modelo.ModCategoria;
+import com.mycompany.modelo.ModEstadoCivil;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author stefanny.0181
  */
-public class ListCategoria extends javax.swing.JFrame {
+public class ListEstadoCivil extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListCategoria
+     * Creates new form ListEstadoCivil
      */
-    public ListCategoria() {
+    public ListEstadoCivil() {
         initComponents();
         
         setLocationRelativeTo(null);
@@ -31,22 +31,21 @@ public class ListCategoria extends javax.swing.JFrame {
     public void listarTodos(){
         try{
             //Pega o model da tabela definido no design
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableCategoria.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
             
-            tableCategoria.setModel(defaultTableModel);
+            tableEstadoCivil.setModel(defaultTableModel);
 
-            DaoCategoria daoCategoria = new DaoCategoria();
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-            ResultSet resultSet = daoCategoria.listarTodos();
+            ResultSet resultSet = daoEstadoCivil.listarTodos();
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
                 String nome = resultSet.getString(2);
-                String descricao = resultSet.getString(3);
                 
-                defaultTableModel.addRow(new Object[]{id, nome, descricao});
+                defaultTableModel.addRow(new Object[]{id, nome});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -56,22 +55,21 @@ public class ListCategoria extends javax.swing.JFrame {
     public void listarPorId(int pId){
         try{
             //Define o model da tabela.
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableCategoria.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
 
-            tableCategoria.setModel(defaultTableModel);
+            tableEstadoCivil.setModel(defaultTableModel);
 
-            DaoCategoria daoCategoria = new DaoCategoria();
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-            ResultSet resultSet = daoCategoria.listarPorId(pId);
+            ResultSet resultSet = daoEstadoCivil.listarPorId(pId);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
                 String nome = resultSet.getString(2);
-                String descricao = resultSet.getString(3);
                 
-                defaultTableModel.addRow(new Object[]{id, nome, descricao});
+                defaultTableModel.addRow(new Object[]{id, nome});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -81,53 +79,27 @@ public class ListCategoria extends javax.swing.JFrame {
     public void listarPorNome(String pNome){
         try{
             //Define o model da tabela.
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableCategoria.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableEstadoCivil.getModel();
             
-            tableCategoria.setModel(defaultTableModel);
+            tableEstadoCivil.setModel(defaultTableModel);
 
-            DaoCategoria daoCategoria = new DaoCategoria();
+            DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
 
             //Atribui o resultset retornado a uma variável para ser usada.
-            ResultSet resultSet = daoCategoria.listarPorNome(pNome);
+            ResultSet resultSet = daoEstadoCivil.listarPorNome(pNome);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
                 String id = resultSet.getString(1);
                 String nome = resultSet.getString(2);
-                String descricao = resultSet.getString(3);
                 
-                defaultTableModel.addRow(new Object[]{id, nome, descricao});
+                defaultTableModel.addRow(new Object[]{id, nome});
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
-    
-    public void listarPorDescricao(String pDescricao){
-        try{
-            //Define o model da tabela.
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableCategoria.getModel();
-            
-            tableCategoria.setModel(defaultTableModel);
 
-            DaoCategoria daoCategoria = new DaoCategoria();
-
-            //Atribui o resultset retornado a uma variável para ser usada.
-            ResultSet resultSet = daoCategoria.listarPorDescricao(pDescricao);
-            
-            defaultTableModel.setRowCount(0);
-            while (resultSet.next()){
-                String id = resultSet.getString(1);
-                String nome = resultSet.getString(2);
-                String descricao = resultSet.getString(3);
-                
-                defaultTableModel.addRow(new Object[]{id, nome, descricao});
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,19 +109,23 @@ public class ListCategoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfFiltro = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableCategoria = new javax.swing.JTable();
+        tableEstadoCivil = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta de Categoria");
+        jLabel1.setText("jLabel1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
+
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "ID", "Nome", " " }));
 
         tfFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,33 +133,21 @@ public class ListCategoria extends javax.swing.JFrame {
             }
         });
 
-        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME", "DESCRIÇÃO" }));
-
-        tableCategoria.setModel(new javax.swing.table.DefaultTableModel(
+        tableEstadoCivil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "NOME", "DESCRIÇÃO"
+                "ID", "Nome"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tableCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+        ));
+        tableEstadoCivil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableCategoriaMouseClicked(evt);
+                tableEstadoCivilMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableCategoria);
+        jScrollPane1.setViewportView(tableEstadoCivil);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,10 +163,10 @@ public class ListCategoria extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfFiltro))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBuscar)
@@ -214,10 +178,10 @@ public class ListCategoria extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
                 .addContainerGap())
@@ -230,6 +194,20 @@ public class ListCategoria extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFiltroActionPerformed
 
+    private void tableEstadoCivilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEstadoCivilMouseClicked
+        if (evt.getClickCount() == 2){
+            ModEstadoCivil modEstadoCivil = new ModEstadoCivil();
+
+            modEstadoCivil.setId(Integer.parseInt(String.valueOf(tableEstadoCivil.getValueAt(tableEstadoCivil.getSelectedRow(), 0))));
+            modEstadoCivil.setNome(String.valueOf(tableEstadoCivil.getValueAt(tableEstadoCivil.getSelectedRow(), 1)));
+
+            DadosTemporarios.tempObject = (ModEstadoCivil) modEstadoCivil;
+
+            CadEstadoCivil cadEstadoCivil = new CadEstadoCivil();
+            cadEstadoCivil.setVisible(true);
+        }
+    }//GEN-LAST:event_tableEstadoCivilMouseClicked
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         switch (jcbTipoFiltro.getSelectedIndex()){
             case 0:
@@ -241,29 +219,11 @@ public class ListCategoria extends javax.swing.JFrame {
             case 2:
                 listarPorNome(tfFiltro.getText());
                 break;
-            case 3:
-                listarPorDescricao(tfFiltro.getText());
-                break;
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tableCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCategoriaMouseClicked
-        if (evt.getClickCount() == 2){
-            ModCategoria modCategoria = new ModCategoria();
-
-            modCategoria.setId(Integer.parseInt(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 0))));
-            modCategoria.setNome(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 1)));
-            modCategoria.setDescricao(String.valueOf(tableCategoria.getValueAt(tableCategoria.getSelectedRow(), 2)));
-
-            DadosTemporarios.tempObject = (ModCategoria) modCategoria;
-
-            CadCategoria cadCategoria = new CadCategoria();
-            cadCategoria.setVisible(true);
-        }
-    }//GEN-LAST:event_tableCategoriaMouseClicked
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Formularios.listCategoria = null;
+        Formularios.listEstadoCivil = null;
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -283,29 +243,30 @@ public class ListCategoria extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListEstadoCivil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListEstadoCivil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListEstadoCivil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListEstadoCivil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListCategoria().setVisible(true);
+                new ListEstadoCivil().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbTipoFiltro;
-    private javax.swing.JTable tableCategoria;
+    private javax.swing.JTable tableEstadoCivil;
     private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }
