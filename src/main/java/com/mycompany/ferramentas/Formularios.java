@@ -36,6 +36,9 @@ public class Formularios {
     public static JFrame listEstadoCivil;
     
     
+    
+    
+    
             
     
     

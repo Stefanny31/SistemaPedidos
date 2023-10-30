@@ -14,9 +14,9 @@ import java.sql.ResultSet;
 public class DaoPessoa extends BancoDeDadosMySql{
     String sql;
     
-    public Boolean inserir(int id, int idEndereco, int idEstadoCivil, String nome, String sobrenome, String genero, String telefone, String email){
+    public Boolean inserir(int id, int idEndereco, int idEstadoCivil, String nome, String sobrenome, String genero, String telefone, String email, String usuario, String senha){
         try{
-            sql = "INSERT INTO PESSOA (ID, ID_ENDERECO, ID_ESTADO_CIVIL, NOME, SOBRENOME, GENERO, TELEFONE, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            sql = "INSERT INTO PESSOA (ID, ID_ENDERECO, ID_ESTADO_CIVIL, NOME, SOBRENOME, GENERO, TELEFONE, EMAIL, Usuario, Senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -28,6 +28,8 @@ public class DaoPessoa extends BancoDeDadosMySql{
             getStatement().setString(6, genero);
             getStatement().setString(7, telefone);
             getStatement().setString(8, email);
+            getStatement().setString(9, usuario);
+            getStatement().setString(10, senha);
             
             getStatement().executeUpdate();
             
