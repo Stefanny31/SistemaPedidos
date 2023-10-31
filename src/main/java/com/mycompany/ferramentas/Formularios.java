@@ -35,6 +35,17 @@ public class Formularios {
     public static JFrame cadEstadoCivil;
     public static JFrame listEstadoCivil;
     
+    public static JFrame cadProduto;
+    public static JFrame listProduto;
+    
+    public static JFrame cadCliente;
+    public static JFrame listCliente;
+    
+    public static JFrame cadPedido;
+    public static JFrame listPedido;
+    
+    
+    
     
     
     

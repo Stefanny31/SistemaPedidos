@@ -4,6 +4,17 @@
  */
 package com.mycompany.visao.pessoa;
 
+import com.mycompany.dao.DaoCliente;
+import com.mycompany.dao.DaoEstadoCivil;
+import com.mycompany.dao.DaoPessoa;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.modelo.ModCliente;
+import com.mycompany.modelo.ModEndereco;
+import com.mycompany.modelo.ModPessoa;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author stefanny.0181
@@ -15,6 +26,374 @@ public class ListPessoa extends javax.swing.JFrame {
      */
     public ListPessoa() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        listarTodos();;
+    }
+
+    public void listarTodos(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorId(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorId(Integer.parseInt(tfFiltro.getText()));
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorRua(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorRua(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarCep(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorCep(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNumeroResidencia(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorNumeroResidencia(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNome(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorNome(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorSobrenome(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorSobrenome(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorGenero(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorGenero(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorTelefone(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorTelefone(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorEmail(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorEmail(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorEstadoCivil(){
+        try{
+            //Pega o model da tabela definido no design
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePessoa.getModel();
+            
+            tablePessoa.setModel(defaultTableModel);
+
+            DaoPessoa daoPessoa = new DaoPessoa();
+
+            //Atribui o resultset retornado a uma variável para ser usada.
+            ResultSet resultSet = daoPessoa.listarPorEstadoCivil(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cidade = resultSet.getString(2);
+                String rua = resultSet.getString(3);
+                String cep = resultSet.getString(4);
+                String numRes = resultSet.getString(5);
+                String nome = resultSet.getString(6);
+                String sobrenome = resultSet.getString(7);
+                String genero = resultSet.getString(8);
+                String telefone = resultSet.getString(9);
+                String email = resultSet.getString(10);
+                String estCivil = resultSet.getString(11);
+                
+                defaultTableModel.addRow(new Object[]{id, cidade, rua, cep, numRes, nome, sobrenome, genero, telefone, email, estCivil});
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+      
     }
 
     /**
@@ -26,33 +405,51 @@ public class ListPessoa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablePessoa = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "RUA", "CEP", "NÚM. RESIDÊNCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "RUA", "CEP", "NÚM. RESIDÊNCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL" }));
+
+        tfFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfFiltroActionPerformed(evt);
+            }
+        });
+
+        tablePessoa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Cidade", "Rua", "Cep", "Num. Residência", "Nome ", "Sobrenome", "Gênero", "Telefone", "Email", "Estado Civil"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablePessoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePessoaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablePessoa);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,30 +458,148 @@ public class ListPessoa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
+                        .addComponent(tfFiltro))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(324, 324, 324)
+                .addComponent(btnBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiltroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfFiltroActionPerformed
+
+    private void tablePessoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePessoaMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                //Pega os dados da pessoa
+                ModPessoa modPessoa = new ModPessoa();
+
+                modPessoa.setId(Integer.parseInt(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 0))));
+//                modPessoa.setIdEndereco(Integer.parseInt(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 1))));
+//                modPessoa.setIdEstadoCivil(Integer.parseInt(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 2))));;;
+                modPessoa.setNome(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 5)));
+                modPessoa.setSobrenome(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 6)));
+                modPessoa.setGenero(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 7)));
+                modPessoa.setTelefone(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 8)));
+                modPessoa.setEmail(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 9)));
+                
+                //
+                DaoPessoa daoPessoa = new DaoPessoa();
+                ResultSet resultSet = daoPessoa.listarPorId(Integer.parseInt(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 0).toString()));
+
+                int idEndereco = -1;
+                while(resultSet.next())
+                    idEndereco = resultSet.getInt("ID_ENDERECO");
+
+                modPessoa.setIdEndereco(idEndereco);
+                //
+                
+                //
+                DaoEstadoCivil daoEstadoCivil = new DaoEstadoCivil();
+                resultSet = daoEstadoCivil.listarPorNome(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 10)));
+
+                int idEstadoCivil = -1;
+                while(resultSet.next())
+                    idEstadoCivil = resultSet.getInt("ID");
+                
+                modPessoa.setIdEstadoCivil(idEstadoCivil);
+                //
+                
+                //Pega os dados do endereço
+                ModEndereco modEndereco = new ModEndereco();
+                
+                modEndereco.setNomeRua(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 2)));
+                modEndereco.setCep(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 3)));
+                modEndereco.setNumeroResidencia(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 4)));
+                //
+                
+                //
+                DaoCliente daoCliente = new DaoCliente();
+                resultSet = daoCliente.listarPorIdPessoa(Integer.parseInt(String.valueOf(tablePessoa.getValueAt(tablePessoa.getSelectedRow(), 0))));
+
+                ModCliente modCliente = new ModCliente();
+                
+                int idCliente = -1;
+                while(resultSet.next())
+                    idCliente = resultSet.getInt("ID");
+                
+                modCliente.setId(idCliente);
+                //
+                
+                DadosTemporarios.tempObject = (ModPessoa) modPessoa;
+                DadosTemporarios.tempObject2 = (ModEndereco) modEndereco;
+                DadosTemporarios.tempObject3 = (ModCliente) modCliente;
+                
+                CadPessoa cadPessoa = new CadPessoa();
+                cadPessoa.setVisible(true);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tablePessoaMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId();
+                break;
+            case 2:
+                listarPorRua();
+                break;
+            case 3:
+                listarCep();
+                break;
+            case 4:
+                listarPorNumeroResidencia();
+                break;
+            case 5:
+                listarPorNome();
+                break;
+            case 6:
+                listarPorSobrenome();
+                break;
+            case 7:
+                listarPorGenero();
+                break;
+            case 8:
+                listarPorTelefone();
+                break;
+            case 9:
+                listarPorEmail();
+                break;
+            case 10:
+                listarPorEstadoCivil();
+                break;
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.listPessoa = null ;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -122,9 +637,10 @@ public class ListPessoa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tablePessoa;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

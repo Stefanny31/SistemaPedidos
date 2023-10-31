@@ -215,7 +215,7 @@ public class CadPessoa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível alterar a pessoa!");
         }
         
-        ((Formularios.listPessoa) Formularios.listPessoa).listarTodos();
+        ((ListPessoa) Formularios.listPessoa).listarTodos();
         
         dispose();
     }
